@@ -330,6 +330,12 @@ def make_averaged(original_function, trials_count=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    def averaged_function(*arg):
+        trial, total = 0, 0
+        while trial < trials_count:
+            trial, total = trial + 1, total + original_function(*arg)
+        return total / trials_count
+    return averaged_function
     # END PROBLEM 8
 
 
@@ -344,6 +350,16 @@ def max_scoring_num_rolls(dice=six_sided, trials_count=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    averaged_roll_dice = make_averaged(roll_dice, trials_count)
+    dice_num = 1
+    max_score, max_num = 0, 1
+    while dice_num <= 10:
+        score = averaged_roll_dice(dice_num, dice)
+        if score > max_score:
+            max_score = score
+            max_num = dice_num
+        dice_num += 1
+    return max_num
     # END PROBLEM 9
 
 
@@ -371,17 +387,18 @@ def run_experiments():
     if True:  # Change to False when done finding max_scoring_num_rolls
         six_sided_max = max_scoring_num_rolls(six_sided)
         print('Max scoring num rolls for six-sided dice:', six_sided_max)
+        print('Max_scoring_num_rolls win rate:', average_win_rate(always_roll(six_sided_max)))
 
-    if False:  # Change to True to test always_roll(8)
+    if True:  # Change to True to test always_roll(8)
         print('always_roll(8) win rate:', average_win_rate(always_roll(8)))
 
-    if False:  # Change to True to test piggypoints_strategy
+    if True:  # Change to True to test piggypoints_strategy
         print('piggypoints_strategy win rate:', average_win_rate(piggypoints_strategy))
 
-    if False:  # Change to True to test extra_turn_strategy
+    if True:  # Change to True to test extra_turn_strategy
         print('extra_turn_strategy win rate:', average_win_rate(extra_turn_strategy))
 
-    if False:  # Change to True to test final_strategy
+    if True:  # Change to True to test final_strategy
         print('final_strategy win rate:', average_win_rate(final_strategy))
 
     "*** You may add additional experiments as you wish ***"
@@ -392,7 +409,10 @@ def piggypoints_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     rolls NUM_ROLLS otherwise.
     """
     # BEGIN PROBLEM 10
-    return 6  # Replace this statement
+    zero_dice_point = piggy_points(opponent_score)
+    if zero_dice_point >= cutoff:
+        return 0
+    return num_rolls  # Replace this statement
     # END PROBLEM 10
 
 
@@ -402,17 +422,25 @@ def extra_turn_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     Otherwise, it rolls NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 6  # Replace this statement
+    zero_dice_point = piggy_points(opponent_score)
+    if zero_dice_point >= cutoff or \
+       extra_turn(score + zero_dice_point, opponent_score):
+        return 0
+    return num_rolls  # Replace this statement
     # END PROBLEM 11
 
 
-def final_strategy(score, opponent_score):
+def final_strategy(score, opponent_score, first_move=True):
     """Write a brief description of your final strategy.
 
     *** YOUR DESCRIPTION HERE ***
     """
     # BEGIN PROBLEM 12
-    return 6  # Replace this statement
+    # num_rolls and cut_off are calculated in advance by max_scoring_num_rolls
+    num_rolls = 6 # 6
+    cutoff = 9 # 8.x
+    num_rolls = extra_turn_strategy(score, opponent_score, cutoff, num_rolls)
+    return num_rolls  # Replace this statement
     # END PROBLEM 12
 
 ##########################
