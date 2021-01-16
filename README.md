@@ -1,8 +1,21 @@
-## CS 61 A Structure and Interpretation of Computer Programs
+# CS61A 2020Fall Projects
 
-This is a course project repository. All the projects of CS 61 A 2019 Fall will be placed here. Detailed information please refer to the README.md in each folder.
+![](demo/CS61A.png)[UCB CS61A (2020Fall)](https://inst.eecs.berkeley.edu/~cs61a/fa20/) Projects
 
-##### Completed Projects:
+## Currently finished projects:
+- 1, The Game of Hog
 
-1, Game of HOG
+## Demonstration
 
+### 1. [The Game of Hog](https://github.com/ZhuoyunZhong/CS61A-20Fall-Projects/tree/master/P1-hog)
+
+Use control statements and higher-order functions to develop a simulator and multiple strategies for the dice game HOG.
+
+#### Video demonstration:
+<p align="center">
+  	<a href="https://www.youtube.com/watch?v=6csFn21axXY">
+  		<img src="./demonstration/P1.gif"/>
+	</a>
+</p>
+
+---
