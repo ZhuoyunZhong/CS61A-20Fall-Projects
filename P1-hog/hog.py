@@ -392,8 +392,8 @@ def run_experiments():
     if True:  # Change to True to test always_roll(8)
         print('always_roll(8) win rate:', average_win_rate(always_roll(8)))
 
-    if True:  # Change to True to test piggypoints_strategy
-        print('piggypoints_strategy win rate:', average_win_rate(piggypoints_strategy))
+    if True:  # Change to True to test bacon_strategy
+        print('bacon_strategy win rate:', average_win_rate(bacon_strategy))
 
     if True:  # Change to True to test extra_turn_strategy
         print('extra_turn_strategy win rate:', average_win_rate(extra_turn_strategy))
@@ -404,7 +404,7 @@ def run_experiments():
     "*** You may add additional experiments as you wish ***"
 
 
-def piggypoints_strategy(score, opponent_score, cutoff=8, num_rolls=6):
+def bacon_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     """This strategy rolls 0 dice if that gives at least CUTOFF points, and
     rolls NUM_ROLLS otherwise.
     """
