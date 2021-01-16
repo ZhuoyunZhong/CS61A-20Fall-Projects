@@ -7,47 +7,42 @@ test = {
         {
           'code': r"""
           >>> piggy_points(0)
-          327b19ffebddf93982e1ad2a4a6486f4
-          # locked
+          6
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
           >>> piggy_points(1)
-          edcbd82ba98a8122be244fa325c62071
-          # locked
+          4
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
           >>> piggy_points(2)
-          c42887e7b9ffe8fc26bb57b61329f916
-          # locked
+          7
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
           >>> piggy_points(3)
-          edcbd82ba98a8122be244fa325c62071
-          # locked
+          4
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
           >>> piggy_points(4)
-          2aef307e1e3d3bb468f74013a49eb977
-          # locked
+          8
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""

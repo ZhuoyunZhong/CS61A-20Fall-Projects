@@ -23,8 +23,17 @@ def roll_dice(num_rolls, dice=six_sided):
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    time, total = 0, 0
+    flag_1 = False
+    while time < num_rolls:
+        current_point = dice()
+        if current_point == 1:
+            flag_1 = True
+        time, total = time + 1, total + current_point
+    if flag_1:
+        total = 1
+    return total
     # END PROBLEM 1
-
 
 def piggy_points(score):
     """Return the points scored from rolling 0 dice.
@@ -37,6 +46,7 @@ def piggy_points(score):
     # Trim pi to only (score + 1) digit(s)
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    pi = pi // pow(10, (101-1-score))
     # END PROBLEM 2
 
     return pi % 10 + 3
@@ -58,6 +68,11 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert opponent_score < GOAL_SCORE, 'The game should be over.'
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    if num_rolls == 0:
+        score = piggy_points(opponent_score)
+    else:
+        score = roll_dice(num_rolls, dice)
+    return score
     # END PROBLEM 3
 
 
@@ -80,6 +95,14 @@ def swine_align(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4a
     "*** YOUR CODE HERE ***"
+    n = min(player_score, opponent_score)
+    extra = False
+    while n >= 10:
+        if not(player_score % n) and not(opponent_score % n):
+            extra = True
+            break
+        n -= 1
+    return extra
     # END PROBLEM 4a
 
 
@@ -102,6 +125,8 @@ def more_boar(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4b
     "*** YOUR CODE HERE ***"
+    diff = opponent_score - player_score
+    return 0 < diff < 3
     # END PROBLEM 4b
 
 
@@ -141,6 +166,28 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    strategy = [strategy0, strategy1]
+    score = [score0, score1]
+    # Play one turn
+    def play_one_turn(who):
+        # Use strategy to decide how many dices
+        num_rolls = strategy[who](score[who], score[other(who)])
+        # Roll dices
+        score[who] += take_turn(num_rolls, score[other(who)], dice)
+        # Check victory
+        return score[who] >= goal
+            
+    while True:
+        # Take one turn and check victory after
+        if play_one_turn(who):
+            return score[0], score[1] 
+        # If there are extra turns
+        while swine_align(score[who], score[other(who)]) or \
+              more_boar(score[who], score[other(who)]):
+            if play_one_turn(who):
+                return score[0], score[1]
+        who = other(who)
+    
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
