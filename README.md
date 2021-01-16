@@ -11,11 +11,8 @@
 
 Use control statements and higher-order functions to develop a simulator and multiple strategies for the dice game HOG.
 
-#### Video demonstration:
 <p align="center">
-  	<a href="https://www.youtube.com/watch?v=6csFn21axXY">
-  		<img src="./demonstration/P1.gif"/>
-	</a>
+  	<img src="./demonstration/P1.gif"/>
 </p>
 
 ---
