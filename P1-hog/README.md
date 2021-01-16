@@ -2,6 +2,8 @@
 
 ![](../demo/CS61A.png)  [UCB CS61A (2020Fall)](https://inst.eecs.berkeley.edu/~cs61a/fa20/) [Project 1 The Game of Hog](https://inst.eecs.berkeley.edu/~cs61a/fa20/proj/hog/)
 
+![](demo/P1.gif)
+
 ## Overview
 
 This projects develops a simulator and multiple strategies for the dice game Hog.

@@ -12,7 +12,7 @@
 Use control statements and higher-order functions to develop a simulator and multiple strategies for the dice game HOG.
 
 <p align="center">
-  	<img src="./demonstration/P1.gif"/>
+  	<img src="P1-hog/demo/P1.gif"/>
 </p>
 
 ---
