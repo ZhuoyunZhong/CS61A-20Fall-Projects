@@ -1,6 +1,6 @@
 # CS61A 2020Fall Projects
 
-![](demo/CS61A.png)[UCB CS61A (2020Fall)](https://inst.eecs.berkeley.edu/~cs61a/fa20/) Projects
+![](demo/CS61A.png)  [UCB CS61A (2020Fall)](https://inst.eecs.berkeley.edu/~cs61a/fa20/) Projects
 
 ## Currently finished projects:
 - 1, The Game of Hog
