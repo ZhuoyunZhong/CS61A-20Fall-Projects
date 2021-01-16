@@ -174,6 +174,9 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
         num_rolls = strategy[who](score[who], score[other(who)])
         # Roll dices
         score[who] += take_turn(num_rolls, score[other(who)], dice)
+        # Commentary
+        nonlocal say
+        say = say(score[0], score[1])
         # Check victory
         return score[who] >= goal
             
@@ -276,6 +279,17 @@ def announce_highest(who, last_score=0, running_high=0):
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    # last_score: The current player's score before this turn
+    # running_high: The hihger increase
+    def announce_a_player(score0, score1):
+        score = [score0, score1]
+        high = running_high
+        diff = score[who] - last_score
+        if diff > high:
+            print(f"{diff} point(s)! The most yet for Player {who}")
+            high = diff
+        return announce_highest(who, score[who], high)
+    return announce_a_player
     # END PROBLEM 7
 
 
