@@ -35,6 +35,7 @@ def roll_dice(num_rolls, dice=six_sided):
     return total
     # END PROBLEM 1
 
+
 def piggy_points(score):
     """Return the points scored from rolling 0 dice.
 
@@ -185,8 +186,7 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
         if play_one_turn(who):
             return score[0], score[1] 
         # If there are extra turns
-        while swine_align(score[who], score[other(who)]) or \
-              more_boar(score[who], score[other(who)]):
+        while extra_turn(score[who], score[other(who)]):
             if play_one_turn(who):
                 return score[0], score[1]
         who = other(who)
@@ -316,7 +316,7 @@ def always_roll(n):
     return strategy
 
 
-def make_averaged(original_function, trials_count=1000):
+def make_averaged(original_function, trials_count=10000):
     """Return a function that returns the average value of ORIGINAL_FUNCTION
     when called.
 
@@ -384,18 +384,18 @@ def average_win_rate(strategy, baseline=always_roll(6)):
 
 def run_experiments():
     """Run a series of strategy experiments and report results."""
-    if True:  # Change to False when done finding max_scoring_num_rolls
+    if False:  # Change to False when done finding max_scoring_num_rolls
         six_sided_max = max_scoring_num_rolls(six_sided)
         print('Max scoring num rolls for six-sided dice:', six_sided_max)
         print('Max_scoring_num_rolls win rate:', average_win_rate(always_roll(six_sided_max)))
 
-    if True:  # Change to True to test always_roll(8)
+    if False:  # Change to True to test always_roll(8)
         print('always_roll(8) win rate:', average_win_rate(always_roll(8)))
 
-    if True:  # Change to True to test bacon_strategy
+    if False:  # Change to True to test bacon_strategy
         print('bacon_strategy win rate:', average_win_rate(bacon_strategy))
 
-    if True:  # Change to True to test extra_turn_strategy
+    if False:  # Change to True to test extra_turn_strategy
         print('extra_turn_strategy win rate:', average_win_rate(extra_turn_strategy))
 
     if True:  # Change to True to test final_strategy
@@ -436,10 +436,47 @@ def final_strategy(score, opponent_score, first_move=True):
     *** YOUR DESCRIPTION HERE ***
     """
     # BEGIN PROBLEM 12
-    # num_rolls and cut_off are calculated in advance by max_scoring_num_rolls
-    num_rolls = 6 # 6
-    cutoff = 9 # 8.x
-    num_rolls = extra_turn_strategy(score, opponent_score, cutoff, num_rolls)
+    # Default num_rolls and cut_off are calculated in advance
+    # 1 3.5
+    # 2 5.861111111111112
+    # 3 7.365740740740742
+    # 4 8.233796296296298
+    # 5 8.63567386831276
+    # 6 8.702653463648836
+    # 7 8.535204475308644
+    # 8 8.209609220202715
+    # 9 7.7832344813735235
+    # 10 7.298717732703985
+    
+    # General
+    num_rolls = 5
+    expect = 8
+    diff = score - opponent_score
+    zero_dice_point = piggy_points(opponent_score)
+
+    # If Pig Pass-ing, take more dices
+    if diff == -2:
+        num_rolls = 6
+    elif diff == -1 and opponent_score >= 10:
+        num_rolls = 6
+    
+    # If moving one step or using zero dice can reroll
+    elif extra_turn(score + 1, opponent_score):
+        num_rolls = 10
+    elif extra_turn(score + zero_dice_point, opponent_score):
+        num_rolls = 0
+
+    # If close to goal, take less risk
+    elif (100 - score) <= 15:
+        num_rolls = 3
+        # If 0 dice can make it
+        if score + zero_dice_point >= 100:
+            num_rolls = 0
+
+    # General
+    elif zero_dice_point >= expect:
+        num_rolls = 0
+
     return num_rolls  # Replace this statement
     # END PROBLEM 12
 
