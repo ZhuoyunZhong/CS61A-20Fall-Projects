@@ -23,3 +23,4 @@ More examples could be found on the project page.
 
 ## Project Details
 
+Final strategy win rate: around 62% against always-roll-4 strategy.
